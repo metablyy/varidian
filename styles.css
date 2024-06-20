@@ -60,16 +60,6 @@ body, html {
     background-size: cover;
 }
 
-#player-sprite {
-    background-image: url('https://i.imgur.com/Td6ONbn.png');
-}
-
-#enemy-sprite {
-    background-image: url('https://i.imgur.com/OeFgm5B.png');
-    position: absolute;
-    right: 0;
-}
-
 #battle-dialogue {
     position: absolute;
     bottom: 0;
