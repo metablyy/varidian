@@ -1,3 +1,5 @@
+let varidians = [];
+
 const gameMap = document.getElementById('game-map');
 const dialogueBox = document.getElementById('dialogue-box');
 const dialogueText = document.getElementById('dialogue-text');
@@ -13,9 +15,28 @@ const player = {
     speed: 4,
     direction: 'down',
     frame: 0,
+    varidian: null,
 };
 
 let interactingCharacter = null;
+
+function loadVaridianData() {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = './varidians.js';
+        script.onload = () => {
+            varidians = varidiansData;
+            resolve();
+        };
+        script.onerror = () => reject(new Error('Failed to load varidians.js'));
+        document.head.appendChild(script);
+    });
+}
+
+function getRandomVaridian() {
+    const randomIndex = Math.floor(Math.random() * varidians.length);
+    return varidians[randomIndex];
+}
 
 function createPlayer() {
     player.element = document.createElement('div');
@@ -86,7 +107,7 @@ const characters = [
         height: 50,
         dialogue: 'Welcome to the world of Varidian Adventures!',
         element: null,
-        isEnemy: false,
+        isEnemy: true,
     },
     {
         name: 'Enemy Trainer',
@@ -138,6 +159,12 @@ function startBattle(enemy) {
     battleBox.style.display = 'block';
     battleDialogue.textContent = 'A wild ' + enemy.name + ' appears!';
 
+    const playerVaridian = getRandomVaridian();
+    const enemyVaridian = getRandomVaridian();
+
+    console.log('Player Varidian:', playerVaridian.name);
+    console.log('Enemy Varidian:', enemyVaridian.name);
+
     setTimeout(() => {
         battleDialogue.textContent = 'Battle starts!';
     }, 3000);
@@ -151,5 +178,9 @@ function endBattle() {
     battleBox.style.display = 'none';
 }
 
-createPlayer();
-createCharacters();
+loadVaridianData().then(() => {
+    createPlayer();
+    createCharacters();
+}).catch(error => {
+    console.error(error);
+});
