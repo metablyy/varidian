@@ -1,0 +1,6 @@
+Changelog thus far:
+
+
+v.0.0.5
+- Basic map has been implemented to the game
+- Refactored old code

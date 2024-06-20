@@ -1,0 +1,8 @@
+--[[
+
+    Note to self:
+
+    - NPCs can be interacted with from any range (and from hovering while pressing space to counter coordinates for now)
+    - Zoom into the map & player a bit more, the view is too far out
+
+]]
