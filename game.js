@@ -48,6 +48,7 @@ function movePlayer(dx, dy, direction) {
     player.element.style.left = player.x + 'px';
     player.element.style.top = player.y + 'px';
     updatePlayerSprite();
+    checkInteraction();
 }
 
 document.addEventListener('keydown', (event) => {
@@ -111,14 +112,16 @@ function createCharacters() {
         character.element.style.top = character.y + 'px';
 
         gameMap.appendChild(character.element);
+    });
+}
 
-        character.element.addEventListener('mouseover', () => {
-            interactingCharacter = character;
-        });
-
-        character.element.addEventListener('mouseout', () => {
-            interactingCharacter = null;
-        });
+function checkInteraction() {
+    interactingCharacter = characters.find(character => {
+        const dx = player.x - character.x;
+        const dy = player.y - character.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const maxDistance = 50;
+        return distance <= maxDistance;
     });
 }
 
